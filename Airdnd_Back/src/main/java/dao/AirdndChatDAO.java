@@ -24,7 +24,7 @@ public class AirdndChatDAO implements AirdndChatDAOI {
 	//Select User's chat list - all
 	@Override
 	public List<AirdndChatVO> selectChatListAll(int user_idx){
-		String sql = "select * from airdnd_chatting where user_idx=" + user_idx + " and all_hidden_unread='all' order by idx desc";
+		String sql = "select * from airdnd_chatting where user_idx=" + user_idx + " and all_hidden_unread='all' order by idx";
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		
 		List<AirdndChatVO> list = jdbcTemplate.query(sql, new RowMapper<AirdndChatVO>() {
@@ -49,7 +49,7 @@ public class AirdndChatDAO implements AirdndChatDAOI {
 	//Select User's chat list - hidden
 	@Override
 	public List<AirdndChatVO> selectChatListHidden(int user_idx){
-		String sql = "select * from airdnd_chatting where user_idx=" + user_idx + " and all_hidden_unread='hidden' order by idx desc";
+		String sql = "select * from airdnd_chatting where user_idx=" + user_idx + " and all_hidden_unread='hidden' order by idx";
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		
 		List<AirdndChatVO> list = jdbcTemplate.query(sql, new RowMapper<AirdndChatVO>() {
@@ -74,7 +74,7 @@ public class AirdndChatDAO implements AirdndChatDAOI {
 	//Select User's chat list - unread
 	@Override
 	public List<AirdndChatVO> selectChatListUnread(int user_idx){
-		String sql = "select * from airdnd_chatting where user_idx=" + user_idx + " and all_hidden_unread='unread' order by idx desc";
+		String sql = "select * from airdnd_chatting where user_idx=" + user_idx + " and all_hidden_unread='unread' order by idx";
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		
 		List<AirdndChatVO> list = jdbcTemplate.query(sql, new RowMapper<AirdndChatVO>() {
@@ -99,7 +99,7 @@ public class AirdndChatDAO implements AirdndChatDAOI {
 	//Select User's messages list with filter
 	@Override
 	public List<AirdndChatMsgsVO> selectMsgList(int user_idx, int host_idx, String all_hidden_unread){
-		String sql = "SELECT * FROM airdnd_chatting_msgs where message_idx in (SELECT idx from airdnd_chatting where user_idx=" + user_idx + " AND host_idx=" + host_idx + " AND all_hidden_unread='" + all_hidden_unread + "')";
+		String sql = "SELECT * FROM airdnd_chatting_msgs where message_idx in (SELECT idx from airdnd_chatting where user_idx=" + user_idx + " AND host_idx=" + host_idx + " AND all_hidden_unread='" + all_hidden_unread + "') order by send_date_time asc";
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		
 		List<AirdndChatMsgsVO> list = jdbcTemplate.query(sql, new RowMapper<AirdndChatMsgsVO>() {
